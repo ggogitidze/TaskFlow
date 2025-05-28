@@ -15,16 +15,14 @@ import InviteMembersModal from '../components/InviteMembersModal';
 
 const BoardPage = () => {
   const { boardId } = useParams();
-  const { board, loading, error, createTask, updateTask, moveTask, deleteTask, socket } = useBoardData();
+  const { board, loading, error, socket } = useBoardData();
   const [boards, setBoards] = useState([]);
   const { user } = useAuth();
   const navigate = useNavigate();
 
   const [selectedTask, setSelectedTask] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [showInviteModal, setShowInviteModal] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false); // for mobile/tablet
-  const [rightPanelOpen, setRightPanelOpen] = useState(false); // for mobile/tablet
 
   const openTaskDetailModal = (task) => {
     setSelectedTask(task);
@@ -71,9 +69,7 @@ const BoardPage = () => {
   // Pass toggle state and handlers to TopNav for mobile/tablet
   const topNavProps = isMobileOrTablet ? {
     sidebarOpen,
-    setSidebarOpen,
-    rightPanelOpen,
-    setRightPanelOpen
+    setSidebarOpen
   } : {};
 
   if (loading) {
@@ -139,17 +135,15 @@ const BoardPage = () => {
                 board={board}
                 currentUser={user}
                 onMemberKicked={fetchBoards}
-                onInvite={() => setShowInviteModal(true)}
               />
             </div>
             <div style={{ height: '50%', minHeight: 0, display: 'flex', flexDirection: 'column' }}>
               <Chat socket={socket} boardId={board._id} user={user} />
             </div>
-            <InviteMembersModal open={showInviteModal} onClose={() => setShowInviteModal(false)} boardId={boardId} />
           </div>
         </div>
         {/* Right Panel Drawer for mobile/tablet */}
-        {rightPanelOpen && (
+        {sidebarOpen && (
           <div className="fixed right-0 top-16 z-40 flex lg:hidden justify-end" style={{height: 'calc(100vh - 4rem)'}}>
             <div className="w-80 bg-white dark:bg-secondary-bg-dark h-full shadow-xl flex flex-col relative">
               <div className="flex-1 flex flex-col justify-between p-4 pb-2" style={{ height: '100%' }}>
@@ -158,16 +152,14 @@ const BoardPage = () => {
                     board={board}
                     currentUser={user}
                     onMemberKicked={fetchBoards}
-                    onInvite={() => setShowInviteModal(true)}
                   />
                 </div>
                 <div style={{ height: '50%', minHeight: 0, display: 'flex', flexDirection: 'column' }}>
                   <Chat socket={socket} boardId={board._id} user={user} />
                 </div>
-                <InviteMembersModal open={showInviteModal} onClose={() => setShowInviteModal(false)} boardId={boardId} />
               </div>
             </div>
-            <div className="flex-1" onClick={() => setRightPanelOpen(false)} />
+            <div className="flex-1" onClick={() => setSidebarOpen(false)} />
           </div>
         )}
 

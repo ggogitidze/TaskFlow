@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { boardApi } from '../utils/api';
-import { inviteApi } from '../utils/api';
 import InviteMembersModal from './InviteMembersModal';
 import InvitationsModal from './InvitationsModal';
 import { useAuth } from '../context/AuthContext';

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { inviteApi, boardApi } from '../utils/api';
+import { boardApi } from '../utils/api';
 
 const getInitials = (name, email) => {
   if (typeof name === 'string' && name.trim()) {

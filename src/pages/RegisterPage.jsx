@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authApi } from '../utils/api';
-import { Link } from 'react-router-dom';
 import TopNav from '../components/TopNav';
 
 const RegisterPage = () => {

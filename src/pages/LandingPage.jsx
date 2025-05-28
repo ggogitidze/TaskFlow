@@ -6,7 +6,6 @@ import { useAuth } from '../context/AuthContext';
 import { boardApi } from '../utils/api';
 
 const LandingPage = () => {
-  const { theme } = useTheme();
   const { user } = useAuth();
   const navigate = useNavigate();
 
